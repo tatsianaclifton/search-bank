@@ -1,0 +1,15 @@
+.BankDetail {
+  margin: auto;
+  padding: auto;
+}
+
+.BankDetail h1, p {
+  text-align: center;
+}
+
+.LikeButton {
+  margin: auto;
+  padding: 10px;
+  width: 20px;
+  height: 20px;
+}

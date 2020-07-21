@@ -7,8 +7,8 @@
   margin-right: 15px;
 }
 
-.active.HeartShape:before,
-.active.HeartShape:after{
+.Active:before,
+.Active:after{
 	background: red !important;
 }
 

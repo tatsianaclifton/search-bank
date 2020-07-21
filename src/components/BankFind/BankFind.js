@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 
 import classes from './BankFind.module.css';
 import Input from '../Input/Input';
@@ -13,23 +12,16 @@ const BankFind = (props) => {
   const favoriteBanks = useSelector(state => state.favoriteBanks);
   const [searchText, setSearchText] = useState('');
 
-  useEffect(() => {
-  }, [searchText])
+  const onGetSearchResults = (
+    (searchCriteria) => dispatch(actions.getSearchResults(searchCriteria))
+  );
 
-  const inputChangedHandler = (event) => {    
+  const inputChangedHandler = (event) => {
     if(event.target.value !== '') {
-      const url="https://tatsiana-bank-api.herokuapp.com/api/banks?name=" + event.target.value;
-      axios.get(url)
-        .then(response => {
-          const searchResult = Object.values(response.data.banks);
-          dispatch(actions.getSearchResults(searchResult));
-        })
-        .catch(error => {
-          console.log('error', error);
-        })
+      onGetSearchResults(event.target.value);
     }
     else{
-      dispatch(actions.getSearchResults(favoriteBanks));
+      dispatch(actions.setSearchResults(favoriteBanks));
     }
     setSearchText(event.target.value);
   }
@@ -54,7 +46,6 @@ const BankFind = (props) => {
           changed={(event) => inputChangedHandler(event)}/>
         <BankList
           updateFavorites={updateFavoritesHandler}
-          favorites={favoriteBanks}
           selected={displayDetailHandler}
           data={bankSearchResults}/>
       </div>    

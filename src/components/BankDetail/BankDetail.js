@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import classes from './BankDetail.module.css';
 import Input from '../Input/Input';
 import LikeButton from '../LikeButton/LikeButton';
+import * as actions from '../../store/actions/bankSearch';
 
 const BankDetails = (props) => {
+  const dispatch = useDispatch();
   const bankSearchResults = useSelector(state => state.bankSearchResults);
+  const favoriteBanks = useSelector(state => state.favoriteBanks);
   const [note, setNote] = useState('');
   const bankDetail = bankSearchResults.filter(result => result.data.ID === props.match.params.id);
 
   const inputChangedHandler = (event) => {
     setNote(event.target.value);    
   }
+
+  const updateFavoritesHandler = (id) => {
+    const bank = bankSearchResults.filter(result => result.data.ID === id )[0];
+    dispatch(actions.updateFavorites(bank));
+  };
 
   let details = <Redirect to="/" />;
   if (bankDetail.length > 0) {
@@ -32,7 +40,9 @@ const BankDetails = (props) => {
             value={note}
             changed={(event) => inputChangedHandler(event)}/>
         <div className={classes.LikeButton}>
-          <LikeButton/>
+          <LikeButton
+            update={() => updateFavoritesHandler(bankDetail[0].data.ID)}
+            addedToFavorites={favoriteBanks.some(f => f.data.ID === bankDetail[0].data.ID+'')}/>
         </div>
       </div>
     );

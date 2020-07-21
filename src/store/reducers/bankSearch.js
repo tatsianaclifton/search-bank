@@ -5,7 +5,7 @@ const initialState = {
   favoriteBanks: []
 };
 
-const getSearchResults = (state, action) => {
+const setSearchResults = (state, action) => {
   return {
     ...state,
     bankSearchResults: action.searchResult
@@ -14,13 +14,12 @@ const getSearchResults = (state, action) => {
 
 const updateFavorites = (state, action) => {
   const updatedListOfFavorites = state.favoriteBanks;
-  const existingIndex = updatedListOfFavorites.indexOf(action.bank);
+  const existingIndex = updatedListOfFavorites.map(f => f.data.ID).indexOf(action.bank.data.ID);
   if(existingIndex >= 0) {
     updatedListOfFavorites.splice(existingIndex, 1);
   } else {
     updatedListOfFavorites.push(action.bank);
   }
-  console.log('added', updatedListOfFavorites);
   return {
     ...state,
     favoriteBanks: updatedListOfFavorites
@@ -29,7 +28,7 @@ const updateFavorites = (state, action) => {
 
 const bankSearchReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.GET_SEARCH_RESULTS: return getSearchResults( state, action );
+    case actionTypes.SET_SEARCH_RESULTS: return setSearchResults( state, action );
     case actionTypes.UNDATE_FAVORITES: return updateFavorites( state, action );
     default: return state;
   }

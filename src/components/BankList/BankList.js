@@ -1,9 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import LikeButton from '../LikeButton/LikeButton';
 import classes from './BankList.module.css';
 
 const BankList = (props) => {
+  const favoriteBanks = useSelector(state => state.favoriteBanks);
+  console.log('updating fav', favoriteBanks)
   return (
     <section className={classes.BankList}>
       <h2>Bank Search Result</h2>
@@ -16,7 +19,7 @@ const BankList = (props) => {
                 {bank.data.NAME}
             </span>
             <LikeButton
-              addedToFavorites={props.favorites.includes(bank.data.ID)}
+              addedToFavorites={favoriteBanks.some(f => f.data.ID === bank.data.ID+'')}
               update={() => props.updateFavorites(bank.data.ID)}/>
           </li>
         ))}

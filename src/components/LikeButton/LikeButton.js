@@ -4,19 +4,14 @@ import './LikeButton.css';
 
 const LikeButton = (props) => {
   let [attachedClasses, setAttachedClasses] = useState("HeartShape");
-  console.log('addedToFavorites', props.addedToFavorites);
   if (props.addedToFavorites) {
+    // setting like that for now, need figure out infinite loop when using setAttachedClasses
     attachedClasses = "HeartShape Active";
   }
 
   const onClickHandler = () => {
     props.update();
-    if(attachedClasses.includes("HeartShape Active")) {
-      setAttachedClasses("HeartShape");
-    }
-    else {
-      setAttachedClasses("HeartShape Active");
-    }
+    setAttachedClasses("HeartShape Active");
   }
   
   return (

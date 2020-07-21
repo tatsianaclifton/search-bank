@@ -6,7 +6,6 @@ import classes from './BankList.module.css';
 
 const BankList = (props) => {
   const favoriteBanks = useSelector(state => state.favoriteBanks);
-  console.log('updating fav', favoriteBanks)
   return (
     <section className={classes.BankList}>
       <h2>Bank Search Result</h2>

@@ -1,2 +1,4 @@
 export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
+export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
+export const ADD_NOTE = 'ADD_NOTE';
 export const UNDATE_FAVORITES = 'UNDATE_FAVORITES';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -11,15 +11,18 @@ const BankDetails = (props) => {
   const dispatch = useDispatch();
   const bankSearchResults = useSelector(state => state.bankSearchResults);
   const favoriteBanks = useSelector(state => state.favoriteBanks);
-  const [note, setNote] = useState('');
+  const notes = useSelector(state => state.notes);
+  const filteredNotes = notes.filter(result => result.id === props.match.params.id);
+  const note = filteredNotes.length > 0 ? filteredNotes[0].note : '';
+  console.log('note', note);
   const bankDetail = bankSearchResults.filter(result => result.data.ID === props.match.params.id);
 
   const inputChangedHandler = (event) => {
-    setNote(event.target.value);    
+    dispatch(actions.addNote(bankDetail[0].data.ID, event.target.value));  
   }
 
   const updateFavoritesHandler = (id) => {
-    const bank = bankSearchResults.filter(result => result.data.ID === id )[0];
+    const bank = bankSearchResults.filter(result => result.data.ID === id)[0];
     dispatch(actions.updateFavorites(bank));
   };
 

@@ -9,6 +9,21 @@ export const setSearchResults = (searchResult) => {
   }
 }
 
+export const setSearchText = (searchText) => {
+  return {
+    type: actionTypes.SET_SEARCH_TEXT,
+    searchText: searchText
+  }
+}
+
+export const addNote = (id, note) => {
+  return {
+    type: actionTypes.ADD_NOTE,
+    note: note,
+    id: id
+  }
+}
+
 export const updateFavorites = (bank) => {
   return {
     type: actionTypes.UNDATE_FAVORITES,

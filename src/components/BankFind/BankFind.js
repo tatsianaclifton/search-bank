@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import classes from './BankFind.module.css';
@@ -10,20 +10,21 @@ const BankFind = (props) => {
   const dispatch = useDispatch();
   const bankSearchResults = useSelector(state => state.bankSearchResults);
   const favoriteBanks = useSelector(state => state.favoriteBanks);
-  const [searchText, setSearchText] = useState('');
+  const searchText = useSelector(state => state.searchText);
 
   const onGetSearchResults = (
     (searchCriteria) => dispatch(actions.getSearchResults(searchCriteria))
   );
 
   const inputChangedHandler = (event) => {
-    if(event.target.value !== '') {
-      onGetSearchResults(event.target.value);
+    const inputText = event.target.value;
+    if(inputText !== '') {
+      onGetSearchResults(inputText);
     }
     else{
       dispatch(actions.setSearchResults(favoriteBanks));
     }
-    setSearchText(event.target.value);
+    dispatch(actions.setSearchText(inputText));
   }
 
   const displayDetailHandler = (id) => {

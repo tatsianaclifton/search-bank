@@ -37,7 +37,7 @@ export const updateFavorites = (bank) => {
 
 export const getSearchResults = (searchCriteria) => {
   return dispatch => {
-    if (cancel != undefined) {
+    if (cancel !== undefined) {
       cancel();
     };
     const url="https://tatsiana-bank-api.herokuapp.com/api/banks?name=" + searchCriteria;

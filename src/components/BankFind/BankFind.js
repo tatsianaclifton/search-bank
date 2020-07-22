@@ -12,8 +12,8 @@ const BankFind = (props) => {
   const favoriteBanks = useSelector(state => state.favoriteBanks);
   const searchText = useSelector(state => state.searchText);
 
-  const onGetSearchResults = (
-    (searchCriteria) => dispatch(actions.getSearchResults(searchCriteria))
+  const onGetSearchResults = (searchCriteria => 
+    dispatch(actions.getSearchResults(searchCriteria))
   );
 
   const inputChangedHandler = (event) => {

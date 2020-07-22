@@ -15,3 +15,5 @@ Additionally, notes can be added for cetain bank from the details page.
 Banks marked as favorite will be displayed instead of search results if nothing entered into the search creterion field.
 
 To navigate to the main page (find bank) user can click the Bank Finder from the navigation menu.
+
+URL to the app https://bank-find.web.app

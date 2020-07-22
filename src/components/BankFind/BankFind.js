@@ -31,6 +31,11 @@ const BankFind = (props) => {
     props.history.push('/bank/' + id);
   };
 
+  const searchTextRemovalHandler = () => {
+    dispatch(actions.setSearchResults(favoriteBanks));
+    dispatch(actions.setSearchText(''));
+  };
+
   const updateFavoritesHandler = (id) => {
     const bank = bankSearchResults.filter(result => result.data.ID === id )[0];
     dispatch(actions.updateFavorites(bank));
@@ -38,13 +43,18 @@ const BankFind = (props) => {
   
   return (   
       <div className={classes.BankFind}>   
-        <Input
-          elementType="input"
-          label="Find Bank"
-          placeholder="Type Here Bank Name"          
-          type="text"
-          value={searchText}
-          changed={(event) => inputChangedHandler(event)}/>
+        <div className={classes.Row}>
+          <Input
+            elementType="input"
+            label="Find Bank"
+            placeholder="Type Here Bank Name"          
+            type="text"
+            value={searchText}
+            changed={(event) => inputChangedHandler(event)}/>
+          <button
+            className={classes.Button}
+            onClick={searchTextRemovalHandler}>Clear Search Input</button>
+        </div>      
         <BankList
           updateFavorites={updateFavoritesHandler}
           selected={displayDetailHandler}

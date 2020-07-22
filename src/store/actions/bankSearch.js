@@ -2,6 +2,10 @@ import axios from 'axios';
 
 import * as actionTypes from './actionType';
 
+// Used for cancelling any api request that are in progress if new is made
+const CancelToken = axios.CancelToken;
+let cancel;
+
 export const setSearchResults = (searchResult) => {
   return {
     type: actionTypes.SET_SEARCH_RESULTS,
@@ -33,8 +37,11 @@ export const updateFavorites = (bank) => {
 
 export const getSearchResults = (searchCriteria) => {
   return dispatch => {
+    if (cancel != undefined) {
+      cancel();
+    };
     const url="https://tatsiana-bank-api.herokuapp.com/api/banks?name=" + searchCriteria;
-    axios.get(url)
+    axios.get(url, { cancelToken: new CancelToken(c => cancel = c)})
       .then(response => {
         const searchResult = Object.values(response.data.banks);
         dispatch(setSearchResults(searchResult));

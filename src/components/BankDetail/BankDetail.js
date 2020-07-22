@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -8,16 +8,17 @@ import LikeButton from '../LikeButton/LikeButton';
 import * as actions from '../../store/actions/bankSearch';
 
 const BankDetail = (props) => {
+  const [noteText, setNoteText] = useState('');
   const dispatch = useDispatch();
   const bankSearchResults = useSelector(state => state.bankSearchResults);
   const favoriteBanks = useSelector(state => state.favoriteBanks);
   const notes = useSelector(state => state.notes);
   const filteredNotes = notes.filter(result => result.id === props.match.params.id);
   const note = filteredNotes.length > 0 ? filteredNotes[0].note : '';
-  console.log('note', note);
   const bankDetail = bankSearchResults.filter(result => result.data.ID === props.match.params.id);
 
   const inputChangedHandler = (event) => {
+    setNoteText(event.target.value);
     dispatch(actions.addNote(bankDetail[0].data.ID, event.target.value));  
   }
 
@@ -35,12 +36,13 @@ const BankDetail = (props) => {
         <p>CITY:<span>{bankDetail[0].data.CITY}</span></p>
         <p>STATE:<span>{bankDetail[0].data.STNAME}</span></p>
         <p>ZIP:<span>{bankDetail[0].data.ZIP}</span></p>
+        <p>NOTE:<span>{note}</span></p>
         <Input
             elementType="textarea"
             label="Note"
             placeholder="Add Your Note Here"          
             type="text"
-            value={note}
+            value={noteText}
             changed={(event) => inputChangedHandler(event)}/>
         <div className={classes.LikeButton}>
           <LikeButton

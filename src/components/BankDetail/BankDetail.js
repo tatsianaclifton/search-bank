@@ -7,7 +7,7 @@ import Input from '../Input/Input';
 import LikeButton from '../LikeButton/LikeButton';
 import * as actions from '../../store/actions/bankSearch';
 
-const BankDetails = (props) => {
+const BankDetail = (props) => {
   const dispatch = useDispatch();
   const bankSearchResults = useSelector(state => state.bankSearchResults);
   const favoriteBanks = useSelector(state => state.favoriteBanks);
@@ -53,4 +53,4 @@ const BankDetails = (props) => {
   return details;
 }
 
-export default BankDetails;
+export default BankDetail;
